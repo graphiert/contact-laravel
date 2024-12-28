@@ -9,6 +9,7 @@
 -   Search data
 -   Laravel Breeze
 -   Export into .xlsx
+-   API with Authentication
 
 ## How to run on your local
 
@@ -26,9 +27,11 @@ npm run dev
 php artisan serve
 ```
 
-### Note:
+### Note
 
-If you encounter errors while generating APP_KEY, run this command before and after generating key. [Read more here.](https://stackoverflow.com/a/76339865)
+If you encounter errors while generating APP_KEY,
+run this command before and after generating key.
+[Read more here.](https://stackoverflow.com/a/76339865)
 
 ```sh
 php artisan config:cache

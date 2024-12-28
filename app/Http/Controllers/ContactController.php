@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ContactController extends Controller
 {
@@ -44,7 +44,7 @@ class ContactController extends Controller
         $rules = [
           'name' => 'required|string|max:255',
           'username' => 'required|string|unique:contacts',
-          'phone' => 'required|integer',
+          'phone' => 'required|numeric',
           'email' => 'nullable|email',
           'profile' => 'nullable|image|file',
           'gender' => 'required|string'
@@ -103,12 +103,12 @@ class ContactController extends Controller
         $datas = $request->validate($rules);
         // Delete image when contact has profile and requested to delete profile
         if($contact->profile && $request->has('isDeleteImage')) {
-            File::delete('storage/' . $contact->profile);
+            Storage::delete($contact->profile);
         }
         // Replace profile when user update the profile or upload the profile
         if($request->has('profile')) {
             if($contact->profile) {
-                File::delete('storage/' . $contact->profile);
+                Storage::delete($contact->profile);
             }
             $datas['profile'] = $request->file('profile')->store('profile');
         }
@@ -127,7 +127,7 @@ class ContactController extends Controller
         // Get name for message
         $name = $contact->name;
         // Delete profile
-        File::delete('storage/' . $contact->profile);
+        Storage::delete($contact->profile);
         // Delete contact
         $contact->delete();
         // Redirect to Index with message
