@@ -91,9 +91,9 @@ class ContactController extends Controller
         }
         $rules = [
             'name' => 'nullable|string|max:255',
-          'phone' => 'nullable|numeric',
-          'email' => 'nullable|email',
-          'profile' => 'nullable|image|file',
+            'phone' => 'nullable|numeric',
+            'email' => 'nullable|email',
+            'profile' => 'nullable|image|file',
             'gender' => 'nullable|string'
         ];
         if($request->username != $contact->username) {
@@ -107,10 +107,12 @@ class ContactController extends Controller
         }
         if($contact->profile && $request->has('isDeleteImage')) {
             Storage::delete($contact->profile);
+            $datas['profile'] = '';
         }
         if($request->has('profile')) {
             if($contact->profile) {
                 Storage::delete($contact->profile);
+                $datas['profile'] = '';
             }
             $datas['profile'] = $request->file('profile')->store('profile');
         }

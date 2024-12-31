@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
               <div class="max-w-lg mx-auto">
-              
+
               <form class="flex gap-2 p-6 -mb-6">
                 <x-text-input type="search" name="search" placeholder="Search..."
                 autocomplete="off" value="{{ request('search') ?? null }}" required
@@ -46,7 +46,9 @@
                             @foreach($contacts as $contact)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td class="px-6 py-4">
+                                    @if(isset($contact->profile))
                                     <img width="64px" alt="{{ $contact->name }}" src="/storage/{{ $contact->profile }}" />
+                                    @endif
                                 </td>
                                 <td class="px-6 py-4">
                                     <a class="underline text-sm text-gray-600

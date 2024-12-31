@@ -90,7 +90,7 @@ class ContactController extends Controller
         // Validate the request without username
         $rules = [
           'name' => 'required|string|max:255',
-          'phone' => 'required|integer',
+          'phone' => 'required|numeric',
           'email' => 'nullable|email',
           'profile' => 'nullable|image|file',
           'gender' => 'required|string'
@@ -104,11 +104,13 @@ class ContactController extends Controller
         // Delete image when contact has profile and requested to delete profile
         if($contact->profile && $request->has('isDeleteImage')) {
             Storage::delete($contact->profile);
+            $datas['profile'] = '';
         }
         // Replace profile when user update the profile or upload the profile
         if($request->has('profile')) {
             if($contact->profile) {
                 Storage::delete($contact->profile);
+                $datas['profile'] = '';
             }
             $datas['profile'] = $request->file('profile')->store('profile');
         }

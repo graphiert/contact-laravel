@@ -67,7 +67,7 @@
                                     Email Address
                                 </td>
                                 <td class="px-6 py-4">
-                                  {{ $contact->email }}
+                                  {{ $contact->email ?? "-" }}
                                 </td>
                             </tr>
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -80,10 +80,12 @@
                             </tr>
                         </tbody>
                     </table>
+                    @if(isset($contact->profile))
                     <div class="px-6 py-4">
                       <img src="/storage/{{ $contact->profile }}"
                       alt="{{ $contact->name }}">
                     </div>
+                    @endif
                     </div>
                 </div>
             </div>
