@@ -17,7 +17,7 @@
 git clone https://github.com/graphiert/contact-laravel.git
 cd contact-laravel
 composer install
-cp .env.example .env
+cp .env.example .env # or copy .env.example .env
 nano .env # or notepad.exe .env (change FILESYSTEM_DISK into public)
 php artisan key:generate
 php artisan migrate
