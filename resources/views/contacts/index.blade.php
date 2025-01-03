@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-              <div class="max-w-lg mx-auto">
+              <div class="overflow-x-auto lg:max-w-lg md:max-w-md max-w-sm mx-auto">
 
               <form class="flex gap-2 p-6 -mb-6">
                 <x-text-input type="search" name="search" placeholder="Search..."
@@ -19,7 +19,7 @@
 
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     @if(session('message'))
-                    <div class="my-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                    <div class="my-4 p-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                       {{ session('message') }}
                     </div>
                     @endif
@@ -46,7 +46,7 @@
                             @foreach($contacts as $contact)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td class="px-6 py-4">
-                                    @if(isset($contact->profile))
+                                    @if($contact->profile)
                                     <img width="64px" alt="{{ $contact->name }}" src="/storage/{{ $contact->profile }}" />
                                     @endif
                                 </td>

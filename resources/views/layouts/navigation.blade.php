@@ -16,7 +16,7 @@
                     :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    
+
                     <x-nav-link :href="route('contacts.index')"
                     :active="request()->routeIs('contacts.index')">
                         {{ __('Contacts') }}
@@ -42,6 +42,10 @@
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('token.create')">
+                            {{ __('API Token') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -76,7 +80,7 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            
+
             <x-responsive-nav-link :href="route('contacts.index')"
             :active="request()->routeIs('contacts*')">
                 {{ __('Contacts') }}
@@ -93,6 +97,10 @@
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('token.create')">
+                    {{ __('API Token') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->

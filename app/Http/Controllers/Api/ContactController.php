@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
+use function GuzzleHttp\json_decode;
 
 class ContactController extends Controller
 {
@@ -45,7 +46,6 @@ class ContactController extends Controller
           'gender' => 'required|string'
         ];
         $datas = $request->validate($rules);
-        return response()->json($request->all());
         if(!in_array($datas['gender'], ['Male', 'Female', 'Ask Me'])) {
             return response()->json([
                 'message' => "You entered the wrong 'Gender' field. This field only accept 'Male', 'Female', and 'Ask Me'.",
@@ -56,7 +56,7 @@ class ContactController extends Controller
         }
         Contact::create($datas);
         return response()->json([
-            'message' => "Successfully added $datas['name'] to Contact resource.",
+            'message' => "Successfully added ".$datas['name']." to Contact resource.",
             'data' => $datas
         ], 201);
     }
