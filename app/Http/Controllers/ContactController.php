@@ -104,13 +104,13 @@ class ContactController extends Controller
         // Delete image when contact has profile and requested to delete profile
         if($contact->profile && $request->has('isDeleteImage')) {
             Storage::delete($contact->profile);
-            $datas['profile'] = '';
+            $datas['profile'] = null;
         }
         // Replace profile when user update the profile or upload the profile
         if($request->has('profile')) {
             if($contact->profile) {
                 Storage::delete($contact->profile);
-                $datas['profile'] = '';
+                $datas['profile'] = null;
             }
             $datas['profile'] = $request->file('profile')->store('profile');
         }
@@ -128,8 +128,10 @@ class ContactController extends Controller
     {
         // Get name for message
         $name = $contact->name;
-        // Delete profile
-        Storage::delete($contact->profile);
+        // Delete profile if available
+        if($contact->profile) {
+            Storage::delete($contact->profile);
+        }
         // Delete contact
         $contact->delete();
         // Redirect to Index with message

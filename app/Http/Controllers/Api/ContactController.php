@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Storage;
-use function GuzzleHttp\json_decode;
 
 class ContactController extends Controller
 {
@@ -21,15 +19,15 @@ class ContactController extends Controller
 
         $message = '';
         if(!request('search')) {
-            $message = 'Successfully fetched Contact resource with a total of 5 items on page '.request('page', 1) .'.';
+            $message = 'Successfully fetched Contact resource with a total of '. count($contacts) .' items on page '.request('page', 1) .'.';
         } else {
-            $message = 'Successfully fetched Contact resource with '. request('search') . ' query and with a total of 5 items on page '. request('page', 1) . '.';
+            $message = 'Successfully fetched Contact resource with '. request('search') . ' query and with a total of '. count($contacts) .' items on page '. request('page', 1) . '.';
         }
 
-        return response()->json([
-            'message' => $message,
-            'data' => $contacts
-        ], 200);
+        return response()->json(array_merge(
+            ['message' => $message],
+            $contacts->toArray()
+        ), 200);
     }
 
     /**
@@ -107,12 +105,12 @@ class ContactController extends Controller
         }
         if($contact->profile && $request->has('isDeleteImage')) {
             Storage::delete($contact->profile);
-            $datas['profile'] = '';
+            $datas['profile'] = null;
         }
         if($request->has('profile')) {
             if($contact->profile) {
                 Storage::delete($contact->profile);
-                $datas['profile'] = '';
+                $datas['profile'] = null;
             }
             $datas['profile'] = $request->file('profile')->store('profile');
         }
@@ -135,11 +133,13 @@ class ContactController extends Controller
             ], 404);
         }
         $name = $contact->name;
-        Storage::delete($contact->profile);
+        if ($contact->profile) {
+            Storage::delete($contact->profile);
+        }
         $contact->delete();
         return response()->json([
             'message' => "Successfully deleted $contact->name on Contact resource.",
-            'data' => $contact
-        ], 204);
+            'data' => null
+        ], 200);
     }
 }
