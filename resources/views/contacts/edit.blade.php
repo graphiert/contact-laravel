@@ -63,9 +63,11 @@
                         <label class="block mb-2 text-sm font-medium
                         text-gray-900 dark:text-white" for="file_input">Upload
                         Profile</label>
+                          @if($contact->profile)
                         <div class="px-3 py-2 w-54">
-                          <img width="216" id="imgPlaceholder">
+                          <img width="216" id="imgPlaceholder" src="/storage/{{ $contact->profile }}">
                         </div>
+                          @endif
                         <input class="p-2 block w-full text-sm text-gray-900 border border-gray-300
                         rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none
                         dark:bg-gray-700 dark:border-gray-600
@@ -89,6 +91,10 @@
                           <label for="isDeleteImage" class="ms-2 text-sm
                           font-medium text-gray-500 dark:text-gray-300">I want
                           to delete my old profile.</label>
+                        @error('profile')
+                        <span class="text-sm text-red-600 dark:text-red-400
+                        space-y-1 my-2">{{ $message }}</span>
+                        @enderror
                         </div>
                       </div>
                       <div class="mb-5">

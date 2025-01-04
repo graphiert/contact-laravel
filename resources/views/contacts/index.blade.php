@@ -7,8 +7,8 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-              <div class="overflow-x-auto lg:max-w-lg md:max-w-md max-w-sm mx-auto">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg md:px-4">
+              <div class="overflow-x-auto md:w-2/3 mx-auto">
 
               <form class="flex gap-2 p-6 -mb-6">
                 <x-text-input type="search" name="search" placeholder="Search..."

@@ -57,7 +57,7 @@
                         <label class="block mb-2 text-sm font-medium
                         text-gray-900 dark:text-white" for="file_input">Upload
                         Profile</label>
-                        <div class="px-3 py-2 w-54">
+                        <div class="hidden px-3 py-2 w-54" id="img-preview">
                           <img width="216" id="imgPlaceholder">
                         </div>
                         <input class="p-2 block w-full text-sm text-gray-900 border border-gray-300
@@ -68,6 +68,10 @@
                         type="file">
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300"
                         id="file_input_help">Only PNG, JPG and JPEG are allowed.</p>
+                        @error('profile')
+                        <span class="text-sm text-red-600 dark:text-red-400
+                        space-y-1 my-2">{{ $message }}</span>
+                        @enderror
                       </div>
                       <div class="mb-5">
                         <label for="gender" class="block mb-2 text-sm
@@ -97,8 +101,10 @@
     <script>
       const changeImgPlaceholder = e => {
         const imgPlaceholder = document.querySelector("#imgPlaceholder")
+        const imgPreview = document.querySelector("#img-preview")
         imgPlaceholder.src = URL.createObjectURL(e.target.files[0])
         imgPlaceholder.onload = () => URL.revokeObjectURL(imgPlaceholder.src)
+        imgPreview.classList.remove('hidden')
       }
     </script>
 </x-app-layout>
