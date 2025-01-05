@@ -15,7 +15,7 @@
                     {{ __("Create API Token") }}
                 </h3>
                     @if(session('message'))
-                    <div class="my-4 p-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                    <div class="mb-6 p-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                       {{ session('message') }}
                     </div>
                     @endif
@@ -40,7 +40,7 @@
                     {{ __("Manage API Token") }}
                 </h3>
                     @if(session('key'))
-                    <div class="my-4 p-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                    <div class="mb-6 p-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                     Token successfully generated. Please save the token as it will not reappear.
                     <div class="mt-4 bg-gray-100 dark:bg-gray-900 px-4 py-2 rounded font-mono text-sm text-gray-500 break-all">
                       {{ session('key') }}
