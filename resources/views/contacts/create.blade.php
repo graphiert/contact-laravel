@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="overflow-x-auto lg:max-w-lg md:max-w-md max-w-sm mx-auto p-6 text-gray-900 dark:text-gray-100">
+                <div class="overflow-x-auto md:w-2/3 mx-auto p-6 text-gray-900 dark:text-gray-100">
                     <form method="post" action="{{
                     route('contacts.store') }}" enctype="multipart/form-data">
                       @csrf

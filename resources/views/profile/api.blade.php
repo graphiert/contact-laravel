@@ -6,10 +6,12 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg md:px-4 px-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="max-w-xl">
                 <form class=md:"w-2/3" method="post" action="{{ route('token.store') }}" >
-                <h3 class="py-6 text-lg font-medium text-gray-900 dark:text-gray-100">
+                <h3 class="pb-6 text-lg font-medium text-gray-900 dark:text-gray-100">
                     {{ __("Create API Token") }}
                 </h3>
                     @if(session('message'))
@@ -33,7 +35,7 @@
                 <div class="my-6"></div>
 
                     @if(count($tokens) > 0)
-                    <div class="overflow-x-auto md:w-2/3">
+                    <div class="overflow-x-auto">
                 <h3 class="py-6 text-lg font-medium text-gray-900 dark:text-gray-100">
                     {{ __("Manage API Token") }}
                 </h3>
@@ -76,6 +78,8 @@
                     </table>
                     </div>
                     @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>

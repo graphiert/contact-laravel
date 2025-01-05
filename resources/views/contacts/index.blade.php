@@ -8,16 +8,16 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg md:px-4">
-              <div class="overflow-x-auto md:w-2/3 mx-auto">
+              <div class="overflow-x-auto md:w-2/3 mx-auto p-6">
 
-              <form class="flex gap-2 p-6 -mb-6">
+              <form class="flex gap-2">
                 <x-text-input type="search" name="search" placeholder="Search..."
                 autocomplete="off" value="{{ request('search') ?? null }}" required
                 class="w-full" />
                 <x-primary-button>Search</x-primary-button>
               </form>
 
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+                <div class="text-gray-900 dark:text-gray-100">
                     @if(session('message'))
                     <div class="my-4 p-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                       {{ session('message') }}
