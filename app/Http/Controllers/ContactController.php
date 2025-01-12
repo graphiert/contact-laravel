@@ -16,7 +16,10 @@ class ContactController extends Controller
         // Showing Index view with sending contacts data
         return view('contacts.index', [
             // Send contact with search query if available
-            'contacts' => Contact::search(request('search'))
+            'contacts' => Contact::search(
+                keyword: request('search'),
+                columns: ['name', 'username', 'phone', 'email']
+            )
                 // Paginator
                 ->paginate(5, ['name', 'username', 'phone', 'profile'])
                 // Handle if search used with pagination

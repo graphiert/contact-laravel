@@ -15,7 +15,7 @@ class ContactController extends Controller
      */
     public function index(): JsonResponse
     {
-        $contacts = Contact::search(request('search'))->paginate(5, ['name', 'username', 'phone', 'profile'])->withQueryString();
+        $contacts = Contact::search(request('search'), ['name', 'username', 'phone', 'email'])->paginate(5, ['name', 'username', 'phone', 'profile'])->withQueryString();
 
         $message = '';
         if(!request('search')) {

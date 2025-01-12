@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Contact extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
     protected $fillable = ['name', 'username', 'phone', 'email', 'gender', 'profile'];
 
     public function getRouteKeyName(): string
@@ -17,8 +18,8 @@ class Contact extends Model
         return 'username';
     }
 
-    public function scopeSearch($query, $keyword): void
-    {
-        $query->where('name', 'like', '%' . $keyword . '%');
-    }
+    //public function scopeSearch($query, $keyword): void
+    //{
+    //    $query->where('name', 'like', '%' . $keyword . '%');
+    //}
 }
