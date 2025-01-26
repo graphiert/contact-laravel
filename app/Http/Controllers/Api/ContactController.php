@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class ContactController extends Controller
 {
@@ -35,6 +37,7 @@ class ContactController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        Gate::authorize('manipulate');
         $rules = [
           'name' => 'required|string|max:255',
           'username' => 'required|string|unique:contacts',
@@ -62,14 +65,8 @@ class ContactController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $username): JsonResponse
+    public function show(Contact $contact): JsonResponse
     {
-        $contact = Contact::where('username', $username)->first();
-        if(!$contact) {
-            return response()->json([
-                'message' => "Data not found on Contact resource.",
-            ], 404);
-        }
         return response()->json([
             'message' => "Successfully fetched $contact->name on Contact resource.",
             'data' => $contact
@@ -79,14 +76,9 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $username): JsonResponse
+    public function update(Request $request, Contact $contact): JsonResponse
     {
-        $contact = Contact::where('username', $username)->first();
-        if(!$contact) {
-            return response()->json([
-                'message' => "Data not found on Contact resource.",
-            ], 404);
-        }
+        Gate::authorize('manipulate');
         $rules = [
             'name' => 'nullable|string|max:255',
             'phone' => 'nullable|numeric',
@@ -124,14 +116,9 @@ class ContactController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $username): JsonResponse
+    public function destroy(Contact $contact): JsonResponse
     {
-        $contact = Contact::where('username', $username)->first();
-        if(!$contact) {
-            return response()->json([
-                'message' => "Data not found on Contact resource.",
-            ], 404);
-        }
+        Gate::authorize('manipulate');
         $name = $contact->name;
         if ($contact->profile) {
             Storage::delete($contact->profile);

@@ -16,6 +16,7 @@
                     </div>
                     @endif
                     <div class="my-4 flex gap-2">
+                    @can('manipulate')
                       <x-button-link href="{{ route('contacts.edit',
                       $contact->username) }}">Edit contact</x-button-link>
                       <form id="delete-confirm" action="{{ route('contacts.destroy',
@@ -24,6 +25,7 @@
                       @method('delete')
                       <x-danger-button>Delete</x-danger-button>
                     </form>
+                    @endcan
                     </div>
                     <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right

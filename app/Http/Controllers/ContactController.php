@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class ContactController extends Controller
@@ -32,6 +33,7 @@ class ContactController extends Controller
      */
     public function create()
     {
+        Gate::authorize('manipulate');
         // Showing Create view with sending genders data
         return view('contacts.create', [
           'genders' => ['Male', 'Female', 'Ask Me'],
@@ -43,6 +45,7 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('manipulate');
         // Validate the request
         $rules = [
           'name' => 'required|string|max:255',
@@ -78,6 +81,7 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact)
     {
+        Gate::authorize('manipulate');
         // Showing Edit view with sending contact and genders data
         return view('contacts.edit', [
           'contact' => $contact,
@@ -90,6 +94,7 @@ class ContactController extends Controller
      */
     public function update(Request $request, Contact $contact)
     {
+        Gate::authorize('manipulate');
         // Validate the request without username
         $rules = [
           'name' => 'required|string|max:255',
@@ -129,6 +134,7 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
+        Gate::authorize('manipulate');
         // Get name for message
         $name = $contact->name;
         // Delete profile if available

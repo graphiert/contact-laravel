@@ -25,7 +25,9 @@
                     </div>
                     @endif
                     <div class="my-4 flex gap-2">
+                    @can('manipulate')
                       <x-button-link href="{{ route('contacts.create') }}">Add new contact</x-button-link>
+                    @endcan
                     </div>
                     <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right
