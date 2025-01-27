@@ -11,4 +11,5 @@ Route::post('/revoke', [AuthController::class, 'revoke'])
     ->middleware(['header.json', 'auth:sanctum']);
 
 Route::apiResource('/contacts', ContactController::class)
-    ->middleware(['header.json', 'auth:sanctum']);
+    ->middleware(['header.json', 'auth:sanctum'])
+    ->names('api.contacts');
