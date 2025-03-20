@@ -85,7 +85,7 @@
                     </table>
                     @if($contact->profile)
                     <div class="px-6 py-4">
-                      <img src="/storage/{{ $contact->profile }}"
+                      <img src="{{ asset('storage/' . $contact->profile) }}"
                       alt="{{ $contact->name }}">
                     </div>
                     @endif

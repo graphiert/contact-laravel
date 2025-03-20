@@ -50,7 +50,7 @@
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td class="px-6 py-4">
                                     @if($contact->profile)
-                                    <img width="64px" alt="{{ $contact->name }}" src="/storage/{{ $contact->profile }}" />
+                                    <img width="64px" alt="{{ $contact->name }}" src="{{ asset('storage/' . $contact->profile) }}" />
                                     @endif
                                 </td>
                                 <td class="px-6 py-4">

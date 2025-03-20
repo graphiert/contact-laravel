@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class ContactController extends Controller
      */
     public function index(): JsonResponse
     {
-        $contacts = Contact::search(request('search'), ['name', 'username', 'phone', 'email'])->paginate(5, ['name', 'username', 'phone', 'profile'])->withQueryString();
+        $contacts = Contact::search(request('search'), ['name', 'username', 'phone', 'email'])->paginate(5);
 
         $message = '';
         if(!request('search')) {
@@ -25,10 +26,10 @@ class ContactController extends Controller
             $message = 'Successfully fetched Contact resource with '. request('search') . ' query and with a total of '. count($contacts) .' items on page '. request('page', 1) . '.';
         }
 
-        return response()->json(array_merge(
-            ['message' => $message],
-            $contacts->toArray()
-        ), 200);
+        return response()->json([
+            'message' => $message,
+            'data' => ContactResource::collection($contacts)
+        ], 200);
     }
 
     /**
@@ -54,10 +55,10 @@ class ContactController extends Controller
         if($request->has('profile')) {
             $datas['profile'] = $request->file('profile')->store('profile');
         }
-        Contact::create($datas);
+        $contact = Contact::create($datas);
         return response()->json([
             'message' => "Successfully added ".$datas['name']." to Contact resource.",
-            'data' => $datas
+            'data' => new ContactResource($contact)
         ], 201);
     }
 
@@ -68,7 +69,7 @@ class ContactController extends Controller
     {
         return response()->json([
             'message' => "Successfully fetched $contact->name on Contact resource.",
-            'data' => $contact
+            'data' => new ContactResource($contact)
         ], 200);
     }
 
@@ -108,7 +109,7 @@ class ContactController extends Controller
         $contact->update($datas);
         return response()->json([
             'message' => "Successfully updated $contact->name on Contact resource.",
-            'data' => $contact
+            'data' => new ContactResource($contact)
         ], 200);
     }
 

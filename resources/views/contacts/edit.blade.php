@@ -66,7 +66,7 @@
                         Profile</label>
                           @if($contact->profile)
                         <div class="px-3 py-2 w-54">
-                          <img width="216" id="imgPlaceholder" src="/storage/{{ $contact->profile }}">
+                          <img width="216" id="imgPlaceholder" src="{{ asset('storage/' . $contact->profile) }}">
                         </div>
                           @endif
                         <input class="p-2 block w-full text-sm text-gray-900 border border-gray-300
