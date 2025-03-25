@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class ContactController extends Controller
 {
@@ -79,17 +80,17 @@ class ContactController extends Controller
     public function update(Request $request, Contact $contact): JsonResponse
     {
         Gate::authorize('manipulate');
-        $rules = [
+        $datas = $request->validate([
             'name' => 'nullable|string|max:255',
             'phone' => 'nullable|numeric',
             'email' => 'nullable|email',
             'profile' => 'nullable|image|file',
-            'gender' => 'nullable|string'
-        ];
-        if($request->username != $contact->username) {
-            $rules['username'] = 'nullable|string|unique:contacts';
-        }
-        $datas = $request->validate($rules);
+            'gender' => 'nullable|string',
+            'username' => [
+                'required',
+                Rule::unique('contacts', 'username')->ignore($contact->id)
+            ]
+        ]);
         if($request->gender && !in_array($datas['gender'], ['Male', 'Female', 'Ask Me'])) {
             return response()->json([
                 'message' => "You entered the wrong 'Gender' field. This field only accept 'Male', 'Female', and 'Ask Me'.",

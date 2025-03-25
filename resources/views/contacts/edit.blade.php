@@ -111,7 +111,7 @@
                             @endif
                           @endforeach
                         </select>
-                        @error('gender_id')
+                        @error('gender')
                         <span class="text-sm text-red-600 dark:text-red-400
                         space-y-1 my-2">{{ $message }}</span>
                         @enderror

@@ -6,6 +6,7 @@ use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class ContactController extends Controller
 {
@@ -95,20 +96,19 @@ class ContactController extends Controller
     public function update(Request $request, Contact $contact)
     {
         Gate::authorize('manipulate');
-        // Validate the request without username
-        $rules = [
+        // Validate the request
+        $datas = $request->validate([
           'name' => 'required|string|max:255',
           'phone' => 'required|numeric',
           'email' => 'nullable|email',
           'profile' => 'nullable|image|file',
-          'gender' => 'required|string'
-        ];
+          'gender' => 'required|string',
         // Validate username if username changed
-        if($request->username != $contact->username) {
-            $rules['username'] = 'required|string|unique:contacts';
-        };
-        // Validate data
-        $datas = $request->validate($rules);
+          'username' => [
+              'required',
+              Rule::unique('contacts', 'username')->ignore($contact->id)
+          ]
+        ]);
         // Delete image when contact has profile and requested to delete profile
         if($contact->profile && $request->has('isDeleteImage')) {
             Storage::delete($contact->profile);
